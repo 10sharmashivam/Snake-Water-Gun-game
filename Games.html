@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snake Water Gun Game</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        #game-container {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+
+        #user-choice, #result, #computer-choice {
+            padding: 10px;
+            border: 2px solid #333;
+            border-radius: 5px;
+            width: 150px;
+        }
+
+        #user-input {
+            width: 90%;
+            padding: 8px;
+            margin-top: 8px;
+        }
+
+        button {
+            padding: 10px;
+            margin-top: 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Snake Water Gun Game</h1>
+
+    <div id="game-container">
+        <div>
+            <h3>Your Choice</h3>
+            <input type="text" placeholder="Enter choice" id="user-input">
+        </div>
+        <div>
+            <h3>Result</h3>
+            <div id="result">-</div>
+            <button onclick="playGame()">Submit</button>
+        </div>
+        <div>
+            <h3>Computer's Choice</h3>
+            <div id="computer-choice">-</div>
+        </div>
+    </div>
+
+    <script>
+        window.onload = function () {
+            function playGame() {
+                const choices = ['snake', 'water', 'gun'];
+                const userChoice = document.getElementById('user-input').value.toLowerCase();
+                const computerChoice = choices[Math.floor(Math.random() * choices.length)];
+
+                document.getElementById('user-choice').innerText = userChoice;
+                document.getElementById('computer-choice').innerText = computerChoice;
+
+                const result = determineWinner(userChoice, computerChoice);
+                document.getElementById('result').innerText = result;
+            }
+
+            function determineWinner(user, computer) {
+                if (user === computer) {
+                    return 'It\'s a tie!';
+                } else if (
+                    (user === 'snake' && computer === 'water') ||
+                    (user === 'water' && computer === 'gun') ||
+                    (user === 'gun' && computer === 'snake')
+                ) {
+                    return 'You win!';
+                } else {
+                    return 'Computer wins!';
+                }
+            }
+        };
+    </script>
+</body>
+
+</html>
